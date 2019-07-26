@@ -103,6 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# data files
+# data files from project
 input
 output
