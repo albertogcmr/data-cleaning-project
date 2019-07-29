@@ -9,6 +9,7 @@ def transform(df):
     df['fatal (y/n)'] = df['fatal (y/n)'].apply(clean_fatal)
     df['age'] = df['age'].apply(clean_age)
     df.sex = df.sex.apply(clean_sex)
+    # df['shark'] = df.species.apply(shark_type)
 
 
 

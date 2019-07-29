@@ -21,3 +21,18 @@ def clean_sex(text):
         return 'female'
     else: 
         return 'unknown'
+
+# species
+
+sharks = ['white', 'bull', 'tiger', 'wobbegong', 'blue', 'mako', 'dusky', 'blacktip', 
+          'hooked', 'Zambesi', 'grey nurse', 'silky', 'thresher', 'dogfish', 
+          'Reef', 'Raggedtooth', 'Goblin', 'blacktip', 'Spinner', 'Porbeagle', 
+          'Porbeagle', 'stingray']
+ 
+def shark_type(text): 
+    text = str(text).lower()
+    for shark in sharks: 
+        if shark.lower() in text.lower(): 
+            return '{} shark'.format(shark.lower())
+    else: 
+        return text
