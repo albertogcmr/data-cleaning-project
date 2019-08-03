@@ -1,5 +1,5 @@
 import pandas as pd
-from .cleaning import clean_fatal, clean_age, clean_sex
+from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity
 
 
 def transform(df): 
@@ -9,9 +9,13 @@ def transform(df):
     df['fatal (y/n)'] = df['fatal (y/n)'].apply(clean_fatal)
     df['age'] = df['age'].apply(clean_age)
     df.sex = df.sex.apply(clean_sex)
-    # df['shark'] = df.species.apply(shark_type)
 
+    with open('./shark-data/shark-types.txt', 'r') as f:
+        sharks = f.read().split()
+    df['shark_name'] = df.species.apply(lambda x: shark_name(x, sharks=sharks))
 
+    df['is_provoked'] = df.type.apply(is_provoked)
+    df['activity'] = df.activity.apply(clean_activity)
 
 
     return df

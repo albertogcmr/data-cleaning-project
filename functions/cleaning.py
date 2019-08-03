@@ -5,7 +5,7 @@ def clean_fatal(x):
     elif x != 'UNKNOWN': 
         return 'not fatal'
     else: 
-        return 'unknown'
+        return None
 
 def clean_age(x): 
     try: 
@@ -20,19 +20,29 @@ def clean_sex(text):
     elif text.startswith('F'): 
         return 'female'
     else: 
-        return 'unknown'
+        return None
 
-# species
-
-sharks = ['white', 'bull', 'tiger', 'wobbegong', 'blue', 'mako', 'dusky', 'blacktip', 
-          'hooked', 'Zambesi', 'grey nurse', 'silky', 'thresher', 'dogfish', 
-          'Reef', 'Raggedtooth', 'Goblin', 'blacktip', 'Spinner', 'Porbeagle', 
-          'Porbeagle', 'stingray']
- 
-def shark_type(text): 
+def shark_name(text, sharks=[]): 
     text = str(text).lower()
     for shark in sharks: 
-        if shark.lower() in text.lower(): 
-            return '{} shark'.format(shark.lower())
+        if shark in text: 
+            return '{} shark'.format(shark)
     else: 
-        return text
+        return None
+
+def is_provoked(text): 
+    return text.lower() == 'provoked'
+
+def clean_activity(text): 
+    dictionary = {
+        'surf': 'Surfing', 
+        'fish': 'Fishing', 
+        'swim': 'Swimming', 
+        'board': 'Boarding', 
+        'snor': 'Diving', 
+        'surf': 'Surfing', 
+        'surf': 'Surfing', 
+        'surf': 'Surfing', 
+        
+    }
+    return text
