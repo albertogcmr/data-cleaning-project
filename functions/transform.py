@@ -1,5 +1,5 @@
 import pandas as pd
-from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity
+from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity, delete_columns, shark_size
 
 
 def transform(df): 
@@ -16,6 +16,8 @@ def transform(df):
 
     df['is_provoked'] = df.type.apply(is_provoked)
     df['activity'] = df.activity.apply(clean_activity)
+    df = delete_columns(df, columns=['type', 'pdf', 'href formula', 'href', 'case number.1', 
+                                     'case number.2', 'original order', 'unnamed: 22', 'unnamed: 23'])
 
-
+    df['shark_size'] = df.species.apply(shark_size)
     return df

@@ -1,3 +1,5 @@
+import re
+
 def clean_fatal(x): 
     
     if 'y' in str(x).lower(): 
@@ -34,15 +36,40 @@ def is_provoked(text):
     return text.lower() == 'provoked'
 
 def clean_activity(text): 
-    dictionary = {
-        'surf': 'Surfing', 
-        'fish': 'Fishing', 
-        'swim': 'Swimming', 
-        'board': 'Boarding', 
-        'snor': 'Diving', 
-        'surf': 'Surfing', 
-        'surf': 'Surfing', 
-        'surf': 'Surfing', 
+    # for nan cases
+    try: 
+        text = text.lower()
+        dictionary = {
+            'surf': 'Surfing', 
+            'fish': 'Fishing', 
+            'swim': 'Swimming', 
+            'bath': 'Swimming', 
+            'board': 'Boarding', 
+            'snor': 'Diving', 
+            'div': 'Diving', 
+            'wadi': 'Wading', 
+            'stand': 'Standing', 
+            'scub': 'Diving', 
+            'kaya': 'Kayaking', 
+            'cano': 'Canoeing', 
+            'row': 'Rowing', 
+            'sail': 'Sailing', 
+            'boat': 'Boating', 
+            'float': 'Floating',             
+            'crab': 'Crabbing', 
+            'ski': 'Skiing', 
+            'float': 'Floating', 
+        }
+        for key, value in dictionary.items(): 
+            if key in text: 
+                return value
+        else: 
+            return text.capitalize()
+    except: 
+        return None
         
-    }
+def delete_columns(df, columns=[]):
+    return df.drop(columns, axis=1) 
+
+def shark_size(text): 
     return text
