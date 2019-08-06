@@ -1,5 +1,5 @@
 import pandas as pd
-from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity, delete_columns
+from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity, delete_columns, get_units_qty
 
 
 def transform(df): 
@@ -18,5 +18,7 @@ def transform(df):
     df['activity'] = df.activity.apply(clean_activity)
     df = delete_columns(df, columns=['type', 'pdf', 'href formula', 'href', 'case number.1', 
                                      'case number.2', 'original order', 'unnamed: 22', 'unnamed: 23'])
+
+    df["sizes"], df["units"]= zip(*df["species"].map(get_units_qty))
 
     return df

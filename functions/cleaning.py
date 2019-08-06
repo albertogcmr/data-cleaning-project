@@ -71,5 +71,37 @@ def clean_activity(text):
 def delete_columns(df, columns=[]):
     return df.drop(columns, axis=1) 
 
-def shark_size(text): 
-    return text
+# auxiliar
+def get_feets(text): 
+    d = "\d+\.*\d*\s*"
+    # res = re.findall("\d+\.*\d*\s*feet | \d\.*\d*\s*foot | \d+\.*\d*\s*'", text)
+    res = re.findall("{}feet|{}foot|{}'".format(d, d, d), text)
+    if len(res) > 0: 
+        return float(re.sub("feet|foot|\s|'", '',res[0])), 'feet'
+    else: 
+        return None, None# 'unknown', 'unknown'
+
+# auxiliar
+def get_meters(text): 
+    d = "\d*\.*\d+\s*"
+    # res = re.findall("\d+\.*\d*\s*feet | \d\.*\d*\s*foot | \d+\.*\d*\s*'", text)
+    res = re.findall("{}meter|{}meters|{}m".format(d, d, d), text)
+    if len(res) > 0: 
+        return float(re.sub("meters|meter|\s|m", '',res[0])), 'meters'
+    else: 
+        return None, None# 'unknown', 'unknown'
+    
+def get_units_qty(text): 
+    try: 
+        if any(word in text for word in ('feet', 'foot', "'")): 
+            return get_feets(text)
+        elif any(word in text for word in ('meter', 'meters', "m")): 
+            return get_meters(text)
+        else: 
+            return None, None# 'unknown', 'unknown'
+    except: 
+        return None, None# 'unknown', 'unknown'
+    else:
+        pass
+    finally: 
+        pass
