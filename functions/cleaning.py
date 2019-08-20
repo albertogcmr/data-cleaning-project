@@ -3,13 +3,15 @@ import re
 NO_DATA = 'unknown'
 MALE = 'male'
 FEMALE = 'female'
+FATAL = 'fatal'
+NOT_FATAL = 'not fatal'
 
-def clean_fatal(x): 
-    
+
+def clean_fatal(x):     
     if 'y' in str(x).lower(): 
-        return 'fatal'
+        return FATAL
     elif x != 'UNKNOWN': 
-        return 'not fatal'
+        return NOT_FATAL
     else: 
         return None
 
@@ -62,7 +64,6 @@ def clean_activity(text):
             'float': 'Floating',             
             'crab': 'Crabbing', 
             'ski': 'Skiing', 
-            'float': 'Floating', 
         }
         for key, value in dictionary.items(): 
             if key in text: 
@@ -77,21 +78,21 @@ def delete_columns(df, columns=[]):
 
 # auxiliar
 def get_feets(text): 
-    d = "\d+\.*\d*\s*"
+    d = r"\d+\.*\d*\s*"
     # res = re.findall("\d+\.*\d*\s*feet | \d\.*\d*\s*foot | \d+\.*\d*\s*'", text)
     res = re.findall("{}feet|{}foot|{}'".format(d, d, d), text)
     if len(res) > 0: 
-        return float(re.sub("feet|foot|\s|'", '',res[0])), 'feet'
+        return float(re.sub(r"feet|foot|\s|'", '',res[0])), 'feet'
     else: 
         return None, None # 'unknown', 'unknown'
 
 # auxiliar
 def get_meters(text): 
-    d = "\d*\.*\d+\s*"
+    d = r"\d*\.*\d+\s*"
     # res = re.findall("\d+\.*\d*\s*feet | \d\.*\d*\s*foot | \d+\.*\d*\s*'", text)
     res = re.findall("{}meter|{}meters|{}m".format(d, d, d), text)
     if len(res) > 0: 
-        return float(re.sub("meters|meter|\s|m", '',res[0])), 'meters'
+        return float(re.sub(r"meters|meter|\s|m", '',res[0])), 'meters'
     else: 
         return None, None # 'unknown', 'unknown'
     
