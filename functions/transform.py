@@ -1,10 +1,11 @@
 import pandas as pd
-from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity, delete_columns, get_units_qty
+from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity, delete_columns, get_units_qty, translate_month, get_day_month
 
 
 def transform(df): 
     # cambiamos los nombres de las columnas: a minusculas y eliminando espacios
     df.columns = df.columns.str.lower().str.strip()
+    df = df[df['year']>1920].copy()
 
     df['fatal (y/n)'] = df['fatal (y/n)'].apply(clean_fatal)
     df['age'] = df['age'].apply(clean_age)
@@ -20,5 +21,7 @@ def transform(df):
                                      'case number.2', 'original order', 'unnamed: 22', 'unnamed: 23'])
 
     df["sizes"], df["units"]= zip(*df["species"].map(get_units_qty))
+    df['date'] = df['date'].apply(translate_month)
+    df['day'], df['month'] = zip(*df['date'].map(get_day_month))
 
     return df

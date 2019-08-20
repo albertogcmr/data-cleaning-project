@@ -1,5 +1,9 @@
 import re
 
+NO_DATA = 'unknown'
+MALE = 'male'
+FEMALE = 'female'
+
 def clean_fatal(x): 
     
     if 'y' in str(x).lower(): 
@@ -18,11 +22,11 @@ def clean_age(x):
 def clean_sex(text): 
     text = str(text)
     if text.startswith('M'): 
-        return 'male'
+        return MALE
     elif text.startswith('F'): 
-        return 'female'
+        return FEMALE
     else: 
-        return None
+        return NO_DATA
 
 def shark_name(text, sharks=[]): 
     text = str(text).lower()
@@ -30,7 +34,7 @@ def shark_name(text, sharks=[]):
         if shark in text: 
             return '{} shark'.format(shark)
     else: 
-        return None
+        return NO_DATA
 
 def is_provoked(text): 
     return text.lower() == 'provoked'
@@ -66,7 +70,7 @@ def clean_activity(text):
         else: 
             return text.capitalize()
     except: 
-        return None
+        return NO_DATA
         
 def delete_columns(df, columns=[]):
     return df.drop(columns, axis=1) 
@@ -79,7 +83,7 @@ def get_feets(text):
     if len(res) > 0: 
         return float(re.sub("feet|foot|\s|'", '',res[0])), 'feet'
     else: 
-        return None, None# 'unknown', 'unknown'
+        return None, None # 'unknown', 'unknown'
 
 # auxiliar
 def get_meters(text): 
@@ -89,7 +93,7 @@ def get_meters(text):
     if len(res) > 0: 
         return float(re.sub("meters|meter|\s|m", '',res[0])), 'meters'
     else: 
-        return None, None# 'unknown', 'unknown'
+        return None, None # 'unknown', 'unknown'
     
 def get_units_qty(text): 
     try: 
@@ -98,10 +102,43 @@ def get_units_qty(text):
         elif any(word in text for word in ('meter', 'meters', "m")): 
             return get_meters(text)
         else: 
-            return None, None# 'unknown', 'unknown'
+            return None, None # 'unknown', 'unknown'
     except: 
-        return None, None# 'unknown', 'unknown'
+        return None, None # 'unknown', 'unknown'
     else:
+        pass
+    finally: 
+        pass
+
+def translate_month(text): 
+    # TO Complete
+    MONTHS = {'Jan': '01',
+              'Feb': '02',
+              'Mar': '03',
+              'Apr': '04',
+              'Ap' : '04', 
+              'May': '05',
+              'Jun': '06',
+              'Jul': '07',
+              'Aug': '08',
+              'Sep': '09',
+              'Oct': '10',
+              'Nov': '11',
+              'Dec': '12', 
+              'Reported': ''}
+    for month, number in MONTHS.items(): 
+        text = text.replace(month, number)
+
+    text = text.strip()
+    return text
+
+def get_day_month(text): 
+    try: 
+        day, month, year = text.split('-')
+        return int(day), int(month)
+    except: 
+        return None, None
+    else: 
         pass
     finally: 
         pass
