@@ -12,6 +12,7 @@ def main():
     df = extract(INPUT_FILE_PATH)
     df = transform(df)
     load(df, OUTPUT_FILE_PATH)
+    return df
     
 
 if __name__ == '__main__': 

@@ -1,11 +1,14 @@
 import pandas as pd
 from .cleaning import clean_fatal, clean_age, clean_sex, shark_name, is_provoked, clean_activity, delete_columns, get_units_qty, translate_month, get_day_month
 
+MIN_YEAR = 1920
 
 def transform(df): 
     # cambiamos los nombres de las columnas: a minusculas y eliminando espacios
     df.columns = df.columns.str.lower().str.strip()
-    df = df[df['year']>1920].copy()
+
+    # Filtramos las fechas anteriores a 1920
+    df = df[df['year']>MIN_YEAR].copy()
 
     df['fatal (y/n)'] = df['fatal (y/n)'].apply(clean_fatal)
     df['age'] = df['age'].apply(clean_age)
