@@ -1,5 +1,15 @@
 # ETL Project
 
+![](https://cdn.dribbble.com/users/394112/screenshots/6513697/baby_shark_majica.jpg)
+
+## Autor
+
+Alberto García Cobo
+
+[linkedin](https://www.linkedin.com/in/albertogarciacobo/)
+
+[codewars](https://www.codewars.com/users/albertogcmr)
+
 ## Intro
 
 Proyecto personal para el porfolio de analista de datos. Se procederá a realizar una ETL de un dataset muy complejo, sucio y poco estructurado. 
@@ -32,3 +42,8 @@ Ejecuta la siguiente linea de comandos en la terminal de tu equipo:
 ```console
 $ python3 main.py
 ```
+
+## Resultado
+
+El resultado de le ETL se almacena en documento CSV en la carpeta **output**. 
+
