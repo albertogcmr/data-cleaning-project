@@ -1,5 +1,6 @@
 # imports
 import pandas as pd
+import os
 from functions import extract, transform, load
 
 # variables
